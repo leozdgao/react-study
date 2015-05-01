@@ -73,8 +73,15 @@
 
 	module.exports = React.createClass({
 	  render: function () {
+	    /**
+	     * JSX syntax:
+	     *   <div className="todo-app>
+	     *     <TodoForm />
+	     *     <TodoList />
+	     *   </div>   
+	     */
 	    return React.createElement('div', {
-	             className: 'todo-list'
+	             className: 'todo-app'
 	           }, React.createElement(TodoForm, null),
 	              React.createElement(TodoList, null)
 	           );
@@ -86,13 +93,50 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
+	/// <reference path="../../../typings/react/react.d.ts" />
+
+	var React = __webpack_require__(1);
+
+	module.exports = React.createClass({
+	  render: function () {
+	    /**
+	     * JSX syntax:
+	     *   <div>
+	     *     <input type="text">
+	     *     <input type="button" value="Submit">
+	     *   </div>
+	     */
+	    return React.createElement('div', {
+	             className: 'todo-form'
+	           }, React.createElement('input', null),
+	              React.createElement('input', {
+	                type: 'button',
+	                value: 'Submit'
+	              })
+	           );
+	  }
+	});
 
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
+	/// <reference path="../../../typings/react/react.d.ts" />
+
+	var React = __webpack_require__(1);
+
+	module.exports = React.createClass({
+	  render: function () {
+	    /**
+	     * JSX syntax:
+	     *   <ul>
+	     *   </ul>
+	     */
+	    return React.createElement('div', {
+	      	     className: 'todo-list'  
+	           }, "I'm Todo List.");
+	  }
+	});
 
 /***/ }
 /******/ ]);

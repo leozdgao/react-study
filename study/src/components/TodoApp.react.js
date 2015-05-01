@@ -6,8 +6,15 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function () {
+    /**
+     * JSX syntax:
+     *   <div className="todo-app>
+     *     <TodoForm />
+     *     <TodoList />
+     *   </div>   
+     */
     return React.createElement('div', {
-             className: 'todo-list'
+             className: 'todo-app'
            }, React.createElement(TodoForm, null),
               React.createElement(TodoList, null)
            );
