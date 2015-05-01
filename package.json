@@ -1,0 +1,21 @@
+{
+  "name": "react-study",
+  "version": "1.0.0",
+  "description": "Repo for learning react and flux",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leozdgao/react-study.git"
+  },
+  "author": "leozdgao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leozdgao/react-study/issues"
+  },
+  "homepage": "https://github.com/leozdgao/react-study",
+  "dependencies": {
+    "flux": "^2.0.3",
+    "react": "^0.13.2"
+  }
+}
