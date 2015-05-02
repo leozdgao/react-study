@@ -11,15 +11,15 @@ module.exports = React.createClass({
     };
   },
   componentDidMount: function () {
-    TodoStore.on('change', this._onChange);
+    TodoStore.on('list_change', this._onChange);
   },
   componentWillUnmount: function () {
-    TodoStore.removeListener('change', this._onChange);
+    TodoStore.removeListener('list_change', this._onChange);
   },
   render: function () {
     /**
      * JSX syntax:
-     *   <ul className="todo-list">
+     *   <ul className="list-group">
      *     <TodoItem data={}/>
      *     ...
      *   </ul>
@@ -29,7 +29,7 @@ module.exports = React.createClass({
     });
     
     return React.createElement('ul', {
-      	     className: 'todo-list'  
+      	     className: 'list-group'  
            }, items);
   },
   _onChange: function () {

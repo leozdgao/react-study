@@ -12,7 +12,7 @@ module.exports = React.createClass({
      *     <h2>TodoApp build in React and Flux</h2>
      *     <TodoForm />
      *     <TodoList />
-     *   </div>   
+     *   </div>
      */
     return React.createElement('div', {
              className: 'todo-app'

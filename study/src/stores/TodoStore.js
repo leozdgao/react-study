@@ -8,22 +8,39 @@ var _data = [
 
 var TodoStore = objectAssign({}, EventEmitter.prototype, {
   getAllTask: function () {
-    return _data;
+    // other fetch data logic
+    return _data.map(function (data, i) { data._id = i; return data; });
+  },
+  getTaskState: function (id) {
+    return _data[id] && _data[id].fulfilled;
   },
   addTask: function (text) {
+    // other PUT operation
     _data.push({ text: text, fulfilled: false });
+    
     // trigger event
-    TodoStore.emit('change');
-    return _data.length - 1;
+    TodoStore.emit('list_change');
+    
+    return _data.length - 1; // take index as id
   },
   fulfillTask: function (id) {
-    _data[id] && (_data[id].fulfilled = true);
+    this._changeTaskState(id, true);
   },
   unfulfillTask: function (id) {
-    _data[id] && (_data[id].fulfilled = false);
+    this._changeTaskState(id, false);
   },
   toggleTask: function (id) {
-    _data[id] && (_data[id].fulfilled = !_data[id].fulfilled);
+    this._changeTaskState(id);
+  },
+  _changeTaskState: function (id, state) {
+    if (_data[id]) {
+      // force convert to boolean
+      _data[id].fulfilled = 
+        (typeof state !== 'undefined' ? 
+          !!state : !_data[id].fulfilled);
+      // trigger event
+      TodoStore.emit('change_check', id); 
+    }
   }
 });
 
