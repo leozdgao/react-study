@@ -16,13 +16,13 @@ module.exports = React.createClass({
      *     </div>
      *   </li>
      */
-    return React.createElement('li', {
+    return React.DOM.li({
               className: 'list-group-item'
-           }, React.createElement('div', {
+           }, React.DOM.div({
                 className: 'checkbox'
-              }, React.createElement('label', {
+              }, React.DOM.label({
                 
-                 }, React.createElement('input', {
+                 }, React.DOM.input({
                       type: 'checkbox',
                       checked: this.props.data.fulfilled,
                       onChange: this._onClick

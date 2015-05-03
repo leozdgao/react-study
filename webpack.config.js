@@ -1,7 +1,7 @@
 module.exports = {
-	entry: './study/src/main.js',
+	entry: './todoapp/src/main.js',
 	output: {
-		path: './study',
+		path: './todoapp',
 		filename: "app.bundle.js"
 	},
 	externals: {

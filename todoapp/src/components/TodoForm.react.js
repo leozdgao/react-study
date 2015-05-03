@@ -14,17 +14,17 @@ module.exports = React.createClass({
      *     </span>
      *   </div>
      */
-    return React.createElement('div', {
+    return React.DOM.div({
              className: 'input-group'
-           }, React.createElement('input', {
+           }, React.DOM.input({
                 className: 'form-control',
                 ref: "task",
                 placeholder: "Add a task...",
                 onKeyPress: this._onKeyPress
               }),
-              React.createElement('span', {
+              React.DOM.span({
                 className: 'input-group-btn'
-              }, React.createElement('button', {
+              }, React.DOM.button({
                    className: 'btn btn-default',
                    type: 'button',
                    onClick: this._onClick

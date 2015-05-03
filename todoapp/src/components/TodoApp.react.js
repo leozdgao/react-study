@@ -16,7 +16,7 @@ module.exports = React.createClass({
      */
     return React.createElement('div', {
              className: 'todo-app'
-           }, React.createElement('h2', null, 'TodoApp build in React and Flux'),
+           }, React.DOM.h2(null, 'TodoApp build in React and Flux'),
               React.createElement(TodoForm, null),
               React.createElement(TodoList, null)
            );

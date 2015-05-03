@@ -28,7 +28,7 @@ module.exports = React.createClass({
       return React.createElement(TodoItem, { key: item._id, data: item });
     });
     
-    return React.createElement('ul', {
+    return React.DOM.ul({
       	     className: 'list-group'  
            }, items);
   },

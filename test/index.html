@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="../node_modules/react/dist/react.js"></script>
+  <title>Document</title>
+  <style>
+    .toggle, .toggle-inner {
+      display: inline-block;
+      background-color: #ccc;
+      height: 1.5em;
+      width: 3em;
+      border-radius: 0.8em;
+      overflow: hidden;
+    }
+    .toggle-inner {
+      position: relative;
+      left: -1.5em;
+      background-color: green;
+      transition: all 0.3s;
+    }
+    .toggle-inner:after {
+      content: '';
+      position: absolute;
+      display: inline-block;
+      background-color: #fff;
+      height: 1.5em;
+      width: 1.5em;
+      border-radius: 50%;
+      top: 0;
+      right: 0;
+    }
+    .toggle input[type=checkbox] { display: none; }
+    .toggle input:checked+.toggle-inner {
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="test-container">
+    
+  </div>
+  <span>Text</span>
+  <label class="toggle">
+    <input type="checkbox">
+    <span class="toggle-inner"></span>
+  </label>
+  <script>
+    var Toggle = React.createClass({
+      render: function () {
+        return React.DOM.label({ className: 'toggle' }, 
+                 React.DOM.input({ type: 'checkbox' }),
+                 React.DOM.span({ className: 'toggle-inner' }));
+      }
+    });
+    
+    React.render(React.createElement(Toggle), document.getElementById('test-container'));
+  </script>
+</body>
+</html>
