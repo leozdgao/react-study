@@ -2,20 +2,8 @@
 
 var React = require('react');
 var TodoActions = require('../actions/TodoActions');
-var TodoStore = require('../stores/TodoStore');
 
 module.exports = React.createClass({
-  getInitialState: function () {
-    return {
-      checked: this.props.data.fulfilled
-    };
-  },
-  componentDidMount: function () {
-    TodoStore.on('change_check', this._onChange);
-  },
-  componentWillUnmount: function () {
-    TodoStore.removeListener('change_check', this._onChange);
-  },
   render: function () {
     /**
      * JSX syntax:
@@ -36,7 +24,7 @@ module.exports = React.createClass({
                 
                  }, React.createElement('input', {
                       type: 'checkbox',
-                      checked: this.state.checked,
+                      checked: this.props.data.fulfilled,
                       onChange: this._onClick
                     }),
                     this.props.data.text
@@ -46,10 +34,5 @@ module.exports = React.createClass({
   },
   _onClick: function (e) {
     TodoActions.toggle(this.props.data._id);
-  },
-  _onChange: function (id) {
-    if (id === this.props.data._id) {
-      this.setState({ checked: TodoStore.getTaskState(id) });
-    }
   }
 });

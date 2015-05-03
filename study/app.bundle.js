@@ -79,7 +79,7 @@
 	     *     <h2>TodoApp build in React and Flux</h2>
 	     *     <TodoForm />
 	     *     <TodoList />
-	     *   </div>   
+	     *   </div>
 	     */
 	    return React.createElement('div', {
 	             className: 'todo-app'
@@ -97,7 +97,7 @@
 	/// <reference path="../../../typings/react/react.d.ts" />
 
 	var React = __webpack_require__(1);
-	var TodoActions = __webpack_require__(5);
+	var TodoActions = __webpack_require__(7);
 
 	module.exports = React.createClass({
 	  render: function () {
@@ -152,8 +152,8 @@
 	/// <reference path="../../../typings/react/react.d.ts" />
 
 	var React = __webpack_require__(1);
-	var TodoItem = __webpack_require__(6);
-	var TodoStore = __webpack_require__(7);
+	var TodoItem = __webpack_require__(5);
+	var TodoStore = __webpack_require__(6);
 
 	module.exports = React.createClass({
 	  getInitialState: function () {
@@ -171,12 +171,12 @@
 	    /**
 	     * JSX syntax:
 	     *   <ul className="list-group">
-	     *     <TodoItem data={}/>
+	     *     <TodoItem key={id} data={}/>
 	     *     ...
 	     *   </ul>
 	     */
 	    var items = this.state.tasks.map(function(item) {
-	      return React.createElement(TodoItem, { data: item });
+	      return React.createElement(TodoItem, { key: item._id, data: item });
 	    });
 	    
 	    return React.createElement('ul', {
@@ -192,48 +192,12 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var TodoConstants = __webpack_require__(8);
-	var TodoDispatcher = __webpack_require__(9);
-
-	var TodoActions = {
-	  add: function (text) {
-	    TodoDispatcher.dispatch({
-	      actionType: TodoConstants.TODO_ADD_TASK,
-	      text: text
-	    });
-	  },
-	  toggle: function (id) {
-	    TodoDispatcher.dispatch({
-	      actionType: TodoConstants.TODO_TOGGLE_FULFILL,
-	      id: id
-	    });
-	  }
-	};
-
-	module.exports = TodoActions;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/// <reference path="../../../typings/react/react.d.ts" />
 
 	var React = __webpack_require__(1);
-	var TodoActions = __webpack_require__(5);
-	var TodoStore = __webpack_require__(7);
+	var TodoActions = __webpack_require__(7);
 
 	module.exports = React.createClass({
-	  getInitialState: function () {
-	    return {
-	      checked: this.props.data.fulfilled
-	    };
-	  },
-	  componentDidMount: function () {
-	    TodoStore.on('change_check', this._onChange);
-	  },
-	  componentWillUnmount: function () {
-	    TodoStore.removeListener('change_check', this._onChange);
-	  },
 	  render: function () {
 	    /**
 	     * JSX syntax:
@@ -254,7 +218,7 @@
 	                
 	                 }, React.createElement('input', {
 	                      type: 'checkbox',
-	                      checked: this.state.checked,
+	                      checked: this.props.data.fulfilled,
 	                      onChange: this._onClick
 	                    }),
 	                    this.props.data.text
@@ -264,16 +228,11 @@
 	  },
 	  _onClick: function (e) {
 	    TodoActions.toggle(this.props.data._id);
-	  },
-	  _onChange: function (id) {
-	    if (id === this.props.data._id) {
-	      this.setState({ checked: TodoStore.getTaskState(id) });
-	    }
 	  }
 	});
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var EventEmitter = __webpack_require__(10).EventEmitter;
@@ -317,7 +276,7 @@
 	        (typeof state !== 'undefined' ? 
 	          !!state : !_data[id].fulfilled);
 	      // trigger event
-	      TodoStore.emit('change_check', id); 
+	      TodoStore.emit('list_change'); 
 	    }
 	  }
 	});
@@ -325,10 +284,34 @@
 	module.exports = TodoStore;
 
 /***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var TodoConstants = __webpack_require__(8);
+	var TodoDispatcher = __webpack_require__(9);
+
+	var TodoActions = {
+	  add: function (text) {
+	    TodoDispatcher.dispatch({
+	      actionType: TodoConstants.TODO_ADD_TASK,
+	      text: text
+	    });
+	  },
+	  toggle: function (id) {
+	    TodoDispatcher.dispatch({
+	      actionType: TodoConstants.TODO_TOGGLE_FULFILL,
+	      id: id
+	    });
+	  }
+	};
+
+	module.exports = TodoActions;
+
+/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keyMirror = __webpack_require__(12);
+	var keyMirror = __webpack_require__(13);
 
 	module.exports = keyMirror({
 	  TODO_ADD_TASK: null,
@@ -342,8 +325,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var TodoConstants = __webpack_require__(8);
-	var TodoStore = __webpack_require__(7);
-	var Dispatcher = __webpack_require__(13).Dispatcher;
+	var TodoStore = __webpack_require__(6);
+	var Dispatcher = __webpack_require__(12).Dispatcher;
 	var TodoDispatcher = new Dispatcher();
 
 	TodoDispatcher.register(function (payload) {
@@ -714,6 +697,22 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Copyright (c) 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	module.exports.Dispatcher = __webpack_require__(14)
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * Copyright 2013-2014 Facebook, Inc.
 	 *
 	 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -766,22 +765,6 @@
 	};
 
 	module.exports = keyMirror;
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	module.exports.Dispatcher = __webpack_require__(14)
 
 
 /***/ },

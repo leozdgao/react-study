@@ -39,7 +39,7 @@ var TodoStore = objectAssign({}, EventEmitter.prototype, {
         (typeof state !== 'undefined' ? 
           !!state : !_data[id].fulfilled);
       // trigger event
-      TodoStore.emit('change_check', id); 
+      TodoStore.emit('list_change'); 
     }
   }
 });

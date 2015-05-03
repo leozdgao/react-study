@@ -20,12 +20,12 @@ module.exports = React.createClass({
     /**
      * JSX syntax:
      *   <ul className="list-group">
-     *     <TodoItem data={}/>
+     *     <TodoItem key={id} data={}/>
      *     ...
      *   </ul>
      */
     var items = this.state.tasks.map(function(item) {
-      return React.createElement(TodoItem, { data: item });
+      return React.createElement(TodoItem, { key: item._id, data: item });
     });
     
     return React.createElement('ul', {
