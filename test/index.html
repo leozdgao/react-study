@@ -40,21 +40,87 @@
   <div id="test-container">
     
   </div>
+  <pre><code>
+    var a = "";
+    var b = "";
+  </code></pre>
   <span>Text</span>
-  <label class="toggle">
+<!--  <label class="toggle">
     <input type="checkbox">
     <span class="toggle-inner"></span>
-  </label>
+  </label>-->
+  <div class="tag-input">
+    <input type="text">
+  </div>
+  <textarea>
+  </textarea>>
   <script>
     var Toggle = React.createClass({
+      getInitialState: function () {
+        return { checked: this.props.checked || false };
+      },
       render: function () {
         return React.DOM.label({ className: 'toggle' }, 
-                 React.DOM.input({ type: 'checkbox' }),
+                 React.DOM.input({ type: 'checkbox', ref: "checkbox", checked: this.state.checked, onChange: this._onChange }),
                  React.DOM.span({ className: 'toggle-inner' }));
+      },
+      getValue: function () { 
+        var checkbox = React.findDOMNode(this.refs.checkbox);
+        return checkbox.checked;
+      },
+      _onChange: function () {
+        this.setState({ checked: !this.state.checked });
       }
     });
     
-    React.render(React.createElement(Toggle), document.getElementById('test-container'));
+    var ToggleOption = React.createClass({
+      getInitialState: function () {
+        return { label: "test", checked: false };
+      },
+      render: function () {
+        return React.DOM.div(null,
+                 React.DOM.label(null, this.state.label),
+                 React.createElement(Toggle, { checked: this.state.checked })
+               );
+      }
+    });
+    
+    var toggleBtn = React.createElement(ToggleOption);
+    React.render(toggleBtn, document.getElementById('test-container'));
+  </script>
+
+  <script>
+  var val = "\t\t\t\taslkdfjalsdfjl\t\t\tadfasfadf\t\t\tasdfasdf\t\t";
+  console.log(parse(val));
+  function parse(text) {
+    'use strict';
+
+    // expand first n-1 tabs
+    text = text.replace(/\t(?=\t)/g, '    '); // g_tab_width
+
+    // replace the nth with two sentinels
+    text = text.replace(/\t/g, '~A~B');
+
+    // use the sentinel to anchor our regex so it doesn't explode
+    text = text.replace(/~B(.+?)~A/g, function (wholeMatch, m1) {
+      var leadingText = m1,
+          numSpaces = 4 - leadingText.length % 4;  // g_tab_width
+
+      // there *must* be a better way to do this:
+      for (var i = 0; i < numSpaces; i++) {
+        leadingText += ' ';
+      }
+
+      return leadingText;
+    });
+
+    // clean up sentinels
+    text = text.replace(/~A/g, '    ');  // g_tab_width
+    text = text.replace(/~B/g, '');
+
+    return text;
+
+  };
   </script>
 </body>
 </html>
