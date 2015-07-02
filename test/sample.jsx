@@ -1,8 +1,10 @@
+import React from 'react';
+
 var component = React.createClass({
   // set default props
-  getDefaultProps: function() {
+  getDefaultProps: function() { console.log('getDefaultProps');
     return {
-      val: 'default';
+      val: 'default'
     }
   },
   // props validation
@@ -23,7 +25,7 @@ var component = React.createClass({
 
     // You can also declare that a prop is an instance of a class. This uses
     // JS's instanceof operator.
-    optionalMessage: React.PropTypes.instanceOf(Message),
+    // optionalMessage: React.PropTypes.instanceOf(Message),
 
     // You can ensure that your prop is limited to specific values by treating
     // it as an enum.
@@ -33,7 +35,7 @@ var component = React.createClass({
     optionalUnion: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number,
-      React.PropTypes.instanceOf(Message)
+      // React.PropTypes.instanceOf(Message)
     ]),
 
     // An array of a certain type
@@ -58,29 +60,31 @@ var component = React.createClass({
     // You can also specify a custom validator. It should return an Error
     // object if the validation fails. Don't `console.warn` or throw, as this
     // won't work inside `oneOfType`.
-    customProp: function(props, propName, componentName) {
+    customProp: function(props, propName, componentName) { console.log('propTypes, customProp');
       if (!/matchme/.test(props[propName])) {
         return new Error('Validation failed!');
       }
     }
   },
-  getInitialState: function() {
+  getInitialState: function() { console.log('getInitialState');
     return { state: '' };
   },
   // before mount
   componentWillMount: function() {
-
+    console.log('componentWillMount');
   },
   // after mount
   componentDidMount: function() {
-
+    console.log('componentDidMount');
   },
   // before unmount
   componentWillUnmount: function() {
-
+    console.log('componentWillUnmount');
   },
   // render component
-  render: function() {
-    return <div></div>
+  render: function() { console.log('render');
+    return (<div></div>);
   }
 });
+
+module.exports = component;

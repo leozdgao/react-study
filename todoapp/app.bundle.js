@@ -83,7 +83,7 @@
 	     */
 	    return React.createElement('div', {
 	             className: 'todo-app'
-	           }, React.createElement('h2', null, 'TodoApp build in React and Flux'),
+	           }, React.DOM.h2(null, 'TodoApp build in React and Flux'),
 	              React.createElement(TodoForm, null),
 	              React.createElement(TodoList, null)
 	           );
@@ -97,7 +97,7 @@
 	/// <reference path="../../../typings/react/react.d.ts" />
 
 	var React = __webpack_require__(1);
-	var TodoActions = __webpack_require__(7);
+	var TodoActions = __webpack_require__(5);
 
 	module.exports = React.createClass({
 	  render: function () {
@@ -110,17 +110,17 @@
 	     *     </span>
 	     *   </div>
 	     */
-	    return React.createElement('div', {
+	    return React.DOM.div({
 	             className: 'input-group'
-	           }, React.createElement('input', {
+	           }, React.DOM.input({
 	                className: 'form-control',
 	                ref: "task",
 	                placeholder: "Add a task...",
 	                onKeyPress: this._onKeyPress
 	              }),
-	              React.createElement('span', {
+	              React.DOM.span({
 	                className: 'input-group-btn'
-	              }, React.createElement('button', {
+	              }, React.DOM.button({
 	                   className: 'btn btn-default',
 	                   type: 'button',
 	                   onClick: this._onClick
@@ -152,8 +152,8 @@
 	/// <reference path="../../../typings/react/react.d.ts" />
 
 	var React = __webpack_require__(1);
-	var TodoItem = __webpack_require__(5);
-	var TodoStore = __webpack_require__(6);
+	var TodoItem = __webpack_require__(6);
+	var TodoStore = __webpack_require__(7);
 
 	module.exports = React.createClass({
 	  getInitialState: function () {
@@ -179,7 +179,7 @@
 	      return React.createElement(TodoItem, { key: item._id, data: item });
 	    });
 	    
-	    return React.createElement('ul', {
+	    return React.DOM.ul({
 	      	     className: 'list-group'  
 	           }, items);
 	  },
@@ -192,10 +192,34 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var TodoConstants = __webpack_require__(8);
+	var TodoDispatcher = __webpack_require__(9);
+
+	var TodoActions = {
+	  add: function (text) {
+	    TodoDispatcher.dispatch({
+	      actionType: TodoConstants.TODO_ADD_TASK,
+	      text: text
+	    });
+	  },
+	  toggle: function (id) {
+	    TodoDispatcher.dispatch({
+	      actionType: TodoConstants.TODO_TOGGLE_FULFILL,
+	      id: id
+	    });
+	  }
+	};
+
+	module.exports = TodoActions;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/// <reference path="../../../typings/react/react.d.ts" />
 
 	var React = __webpack_require__(1);
-	var TodoActions = __webpack_require__(7);
+	var TodoActions = __webpack_require__(5);
 
 	module.exports = React.createClass({
 	  render: function () {
@@ -210,13 +234,13 @@
 	     *     </div>
 	     *   </li>
 	     */
-	    return React.createElement('li', {
+	    return React.DOM.li({
 	              className: 'list-group-item'
-	           }, React.createElement('div', {
+	           }, React.DOM.div({
 	                className: 'checkbox'
-	              }, React.createElement('label', {
+	              }, React.DOM.label({
 	                
-	                 }, React.createElement('input', {
+	                 }, React.DOM.input({
 	                      type: 'checkbox',
 	                      checked: this.props.data.fulfilled,
 	                      onChange: this._onClick
@@ -232,7 +256,7 @@
 	});
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var EventEmitter = __webpack_require__(10).EventEmitter;
@@ -284,34 +308,10 @@
 	module.exports = TodoStore;
 
 /***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var TodoConstants = __webpack_require__(8);
-	var TodoDispatcher = __webpack_require__(9);
-
-	var TodoActions = {
-	  add: function (text) {
-	    TodoDispatcher.dispatch({
-	      actionType: TodoConstants.TODO_ADD_TASK,
-	      text: text
-	    });
-	  },
-	  toggle: function (id) {
-	    TodoDispatcher.dispatch({
-	      actionType: TodoConstants.TODO_TOGGLE_FULFILL,
-	      id: id
-	    });
-	  }
-	};
-
-	module.exports = TodoActions;
-
-/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keyMirror = __webpack_require__(13);
+	var keyMirror = __webpack_require__(12);
 
 	module.exports = keyMirror({
 	  TODO_ADD_TASK: null,
@@ -325,8 +325,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var TodoConstants = __webpack_require__(8);
-	var TodoStore = __webpack_require__(6);
-	var Dispatcher = __webpack_require__(12).Dispatcher;
+	var TodoStore = __webpack_require__(7);
+	var Dispatcher = __webpack_require__(13).Dispatcher;
 	var TodoDispatcher = new Dispatcher();
 
 	TodoDispatcher.register(function (payload) {
@@ -697,22 +697,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	module.exports.Dispatcher = __webpack_require__(14)
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
 	 * Copyright 2013-2014 Facebook, Inc.
 	 *
 	 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -765,6 +749,22 @@
 	};
 
 	module.exports = keyMirror;
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	module.exports.Dispatcher = __webpack_require__(14)
 
 
 /***/ },
