@@ -1,5 +1,6 @@
 import React from 'react';
 import Router, {Route, DefaultRoute, HistoryLocation, RouteHandler, Link} from 'react-router';
+import Uploader from './uploader';
 
 let App = React.createClass({
   render() {
@@ -17,8 +18,10 @@ let Info = React.createClass({
     return (
       <div>
         <div>Info</div><a href="#aa">aa</a>
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <div dangerouslySetInnerHTML={{__html: '<h1 id="aa">Test</h1>' }}></div>
+        <ul>
+          <Uploader />
+        </ul>
+
 
         <Link to="about">About</Link>
       </div>

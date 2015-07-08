@@ -56,6 +56,10 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
+	var _uploader = __webpack_require__(3);
+
+	var _uploader2 = _interopRequireDefault(_uploader);
+
 	var App = _react2['default'].createClass({
 	  displayName: 'App',
 
@@ -94,18 +98,11 @@
 	        { href: '#aa' },
 	        'aa'
 	      ),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement('div', { dangerouslySetInnerHTML: { __html: '<h1 id="aa">Test</h1>' } }),
+	      _react2['default'].createElement(
+	        'ul',
+	        null,
+	        _react2['default'].createElement(_uploader2['default'], null)
+	      ),
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
 	        { to: 'about' },
@@ -162,6 +159,143 @@
 /***/ function(module, exports) {
 
 	module.exports = ReactRouter;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _badge = __webpack_require__(4);
+
+	var _badge2 = _interopRequireDefault(_badge);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'uploader',
+
+	  componentDidMount: function componentDidMount() {
+	    this.uploader = this.refs.uploader.getDOMNode();
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      fileList: [],
+	      panelShowed: false
+	    };
+	  },
+	  render: function render() {
+	    var count = this.state.fileList.length;
+	    var files = this.state.fileList.map(function (file) {
+	      return _react2['default'].createElement(
+	        'li',
+	        { className: 'file-entry' },
+	        file.name
+	      );
+	    });
+
+	    return _react2['default'].createElement(
+	      'li',
+	      { className: 'tb-btn' },
+	      _react2['default'].createElement(
+	        'a',
+	        { title: 'Attachments', onClick: this._addAttachments },
+	        _react2['default'].createElement('i', { className: 'fa fa-paperclip' }),
+	        count > 0 ? _react2['default'].createElement(_badge2['default'], { value: count }) : null
+	      ),
+	      _react2['default'].createElement('input', { ref: 'uploader', type: 'file', name: 'attachments', onChange: this._fileChange }),
+	      _react2['default'].createElement(
+	        'div',
+	        { className: 'file-container', style: this.state.panelShowed ? { display: 'block' } : { display: 'none' } },
+	        _react2['default'].createElement('div', { className: 'pad', onClick: this._togglePanel, style: this.state.panelShowed ? { display: 'block' } : { display: 'none' } }),
+	        _react2['default'].createElement(
+	          'ul',
+	          { className: 'file-list' },
+	          files
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'file-footer' },
+	          _react2['default'].createElement(
+	            'a',
+	            { className: 'file-add', onClick: this._showInput },
+	            _react2['default'].createElement('i', { className: 'fa fa-plus' }),
+	            ' Add'
+	          )
+	        )
+	      )
+	    );
+	  },
+	  _togglePanel: function _togglePanel(e) {
+	    var showed = this.state.panelShowed;
+	    if (showed) this.setState({ panelShowed: false });
+	  },
+	  _addAttachments: function _addAttachments(e) {
+	    e.stopPropagation();
+
+	    if (this.state.fileList.length <= 0) this._showInput();else {
+	      this.setState({ panelShowed: true });
+	    }
+	  },
+	  _showInput: function _showInput() {
+	    this.uploader.click();
+	  },
+	  _fileChange: function _fileChange() {
+	    console.log('file change');
+	    var files = Array.prototype.slice.call(this.uploader.files);
+	    var fileList = this.state.fileList.concat(files);
+	    if (fileList.length > 0) {
+	      // update state here
+	      this.setState({ fileList: fileList, panelShowed: true });
+	    }
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	//
+	//  Componennts to display a badge which should has numberic value.
+	//  Use it like this:
+	//
+	//      <Badge value={num} />
+	//
+	exports["default"] = _react2["default"].createClass({
+	  displayName: "badge",
+
+	  render: function render() {
+	    return _react2["default"].createElement(
+	      "i",
+	      _extends({ className: "badge" }, this.props),
+	      this.props.value
+	    );
+	  }
+	});
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ]);
