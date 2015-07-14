@@ -1,6 +1,7 @@
 import React from 'react';
 import Router, {Route, DefaultRoute, HistoryLocation, RouteHandler, Link} from 'react-router';
 import Uploader from './uploader';
+import Portal from '';
 
 let App = React.createClass({
   render() {
