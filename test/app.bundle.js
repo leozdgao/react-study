@@ -60,6 +60,12 @@
 
 	var _uploader2 = _interopRequireDefault(_uploader);
 
+	var _cssInfoCss = __webpack_require__(5);
+
+	var _cssInfoCss2 = _interopRequireDefault(_cssInfoCss);
+
+	console.log(_cssInfoCss2['default']);
+
 	var App = _react2['default'].createClass({
 	  displayName: 'App',
 
@@ -69,18 +75,22 @@
 	      null,
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: 'info' },
+	        { to: "info" },
 	        'Info'
 	      ),
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: 'about' },
+	        { to: "about" },
 	        'About'
 	      ),
 	      _react2['default'].createElement(_reactRouter.RouteHandler, null)
 	    );
 	  }
 	});
+
+	// import './info.less';
+	// import './about.less';
+
 	var Info = _react2['default'].createClass({
 	  displayName: 'Info',
 
@@ -89,13 +99,23 @@
 	      'div',
 	      null,
 	      _react2['default'].createElement(
-	        'div',
+	        'h1',
 	        null,
+	        'Test'
+	      ),
+	      _react2['default'].createElement(
+	        'div',
+	        { className: _cssInfoCss2['default'].title },
+	        _react2['default'].createElement(
+	          'span',
+	          { className: ".name" },
+	          'AA'
+	        ),
 	        'Info'
 	      ),
 	      _react2['default'].createElement(
 	        'a',
-	        { href: '#aa' },
+	        { href: "#aa" },
 	        'aa'
 	      ),
 	      _react2['default'].createElement(
@@ -105,7 +125,7 @@
 	      ),
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: 'about' },
+	        { to: "about" },
 	        'About'
 	      )
 	    );
@@ -125,12 +145,12 @@
 	      ),
 	      _react2['default'].createElement(
 	        'a',
-	        { href: 'info#aa' },
+	        { href: "info#aa" },
 	        'aa'
 	      ),
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: 'info' },
+	        { to: "info" },
 	        'Info'
 	      )
 	    );
@@ -140,8 +160,8 @@
 	var routes = _react2['default'].createElement(
 	  _reactRouter.Route,
 	  { handler: App },
-	  _react2['default'].createElement(_reactRouter.Route, { name: 'info', path: '', handler: Info }),
-	  _react2['default'].createElement(_reactRouter.Route, { name: 'about', path: 'about', handler: About })
+	  _react2['default'].createElement(_reactRouter.Route, { name: "info", path: "", handler: Info }),
+	  _react2['default'].createElement(_reactRouter.Route, { name: "about", path: "about", handler: About })
 	);
 
 	_reactRouter2['default'].run(routes, _reactRouter2['default'].HistoryLocation, function (Root) {
@@ -197,37 +217,37 @@
 	    var files = this.state.fileList.map(function (file) {
 	      return _react2['default'].createElement(
 	        'li',
-	        { className: 'file-entry' },
+	        { className: "file-entry" },
 	        file.name
 	      );
 	    });
 
 	    return _react2['default'].createElement(
 	      'li',
-	      { className: 'tb-btn' },
+	      { className: "tb-btn" },
 	      _react2['default'].createElement(
 	        'a',
-	        { title: 'Attachments', onClick: this._addAttachments },
-	        _react2['default'].createElement('i', { className: 'fa fa-paperclip' }),
+	        { title: "Attachments", onClick: this._addAttachments },
+	        _react2['default'].createElement('i', { className: "fa fa-paperclip" }),
 	        count > 0 ? _react2['default'].createElement(_badge2['default'], { value: count }) : null
 	      ),
-	      _react2['default'].createElement('input', { ref: 'uploader', type: 'file', name: 'attachments', onChange: this._fileChange }),
+	      _react2['default'].createElement('input', { ref: "uploader", type: "file", name: "attachments", onChange: this._fileChange }),
 	      _react2['default'].createElement(
 	        'div',
-	        { className: 'file-container', style: this.state.panelShowed ? { display: 'block' } : { display: 'none' } },
-	        _react2['default'].createElement('div', { className: 'pad', onClick: this._togglePanel, style: this.state.panelShowed ? { display: 'block' } : { display: 'none' } }),
+	        { className: "file-container", style: this.state.panelShowed ? { display: 'block' } : { display: 'none' } },
+	        _react2['default'].createElement('div', { className: "pad", onClick: this._togglePanel, style: this.state.panelShowed ? { display: 'block' } : { display: 'none' } }),
 	        _react2['default'].createElement(
 	          'ul',
-	          { className: 'file-list' },
+	          { className: "file-list" },
 	          files
 	        ),
 	        _react2['default'].createElement(
 	          'div',
-	          { className: 'file-footer' },
+	          { className: "file-footer" },
 	          _react2['default'].createElement(
 	            'a',
-	            { className: 'file-add', onClick: this._showInput },
-	            _react2['default'].createElement('i', { className: 'fa fa-plus' }),
+	            { className: "file-add", onClick: this._showInput },
+	            _react2['default'].createElement('i', { className: "fa fa-plus" }),
 	            ' Add'
 	          )
 	        )
@@ -276,14 +296,15 @@
 
 	var _react = __webpack_require__(1);
 
-	var _react2 = _interopRequireDefault(_react);
-
 	//
 	//  Componennts to display a badge which should has numberic value.
 	//  Use it like this:
 	//
 	//      <Badge value={num} />
 	//
+
+	var _react2 = _interopRequireDefault(_react);
+
 	exports["default"] = _react2["default"].createClass({
 	  displayName: "badge",
 
@@ -296,6 +317,13 @@
 	  }
 	});
 	module.exports = exports["default"];
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"title":"_3dpOqNNJl6oyjYpdDHCFD9","name":"_2EewWCvw4WTQtPAVAcaIq8"};
 
 /***/ }
 /******/ ]);

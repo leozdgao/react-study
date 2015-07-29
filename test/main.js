@@ -1,7 +1,10 @@
 import React from 'react';
 import Router, {Route, DefaultRoute, HistoryLocation, RouteHandler, Link} from 'react-router';
 import Uploader from './uploader';
-import Portal from '';
+
+import styles from './css/info.css';
+
+console.log(styles);
 
 let App = React.createClass({
   render() {
@@ -14,16 +17,20 @@ let App = React.createClass({
     );
   }
 });
+
+// import './info.less';
+// import './about.less';
+
+
 let Info = React.createClass({
   render() {
     return (
       <div>
-        <div>Info</div><a href="#aa">aa</a>
+        <h1>Test</h1>
+        <div className={styles.title}><span className={styles.name}>AA</span>Info</div><a href="#aa">aa</a>
         <ul>
           <Uploader />
         </ul>
-
-
         <Link to="about">About</Link>
       </div>
     );
