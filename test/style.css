@@ -1,3 +1,23 @@
 ._3dpOqNNJl6oyjYpdDHCFD9 ._2EewWCvw4WTQtPAVAcaIq8 {
   background-color: steelblue;
 }
+
+.item-enter {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.item-enter.item-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 1s;
+}
+
+.item-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+.item-leave.item-leave-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s;
+}

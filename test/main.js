@@ -1,20 +1,55 @@
-import React from 'react';
+import React from 'react/addons';
 import Router, {Route, DefaultRoute, HistoryLocation, RouteHandler, Link} from 'react-router';
 import Uploader from './uploader';
 
 import styles from './css/info.css';
 
-console.log(styles);
+const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+let seed = 0
+const animationTime = 1000
 
 let App = React.createClass({
-  render() {
+  getInitialState () {
+    return {
+      items: ['test'],
+      val: 'test'
+    }
+  },
+  render () {
     return (
       <div>
         <Link to="info">Info</Link>
         <Link to="about">About</Link>
-        <RouteHandler />
+        <button onClick={this._handleAdd}>Add</button>
+        <button onClick={this._handleRemove}>Remove</button>
+        <ul>
+          <ReactCSSTransitionGroup transitionName='item'>
+            {this._getItems()}
+          </ReactCSSTransitionGroup>
+        </ul>
       </div>
-    );
+    )
+  },
+  _getItems () {
+    return this.state.items.map((val, i) => {
+      return <li key={val}>{val}</li>
+    })
+  },
+  _handleAdd () {
+    // let items = this.state.items
+    // items.push('item' + seed++)
+    // let val = this.state.val + seed++
+    this.setState({ items: [] })
+
+    setTimeout(() => {
+      this.setState({ items: [ 'test' + seed++ ] })
+    }, animationTime)
+  },
+  _handleRemove () {
+    let items = this.state.items
+    // items.pop()
+    items.splice(1, 1)
+    this.setState({ items })
   }
 });
 

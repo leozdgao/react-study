@@ -7,7 +7,7 @@ module.exports = {
 		filename: "app.bundle.js"
 	},
 	externals: {
-		'react': 'React',
+		'react/addons': 'React',
 		'react-router': 'ReactRouter'
 	},
   module: {
